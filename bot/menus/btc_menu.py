@@ -20,7 +20,7 @@ def btc_menu(show_back_button=False):
 # Меню для отмены проверки адреса
 def cancel_check_menu():
     buttons = [
-        [InlineKeyboardButton(text="Отмена", callback_data="cancel_check_address")]
+        [InlineKeyboardButton(text="Отмена", callback_data="cancel_check_address_btc")]
     ]
     return InlineKeyboardMarkup(inline_keyboard=buttons)
 
@@ -30,9 +30,14 @@ def wallet_menu(wallets):
     buttons.append([InlineKeyboardButton(text="Назад", callback_data="btc_menu")])
     return InlineKeyboardMarkup(inline_keyboard=buttons)
 
-def confirm_cancel_menu():
+def confirm_cancel_menu(adress, amount):
     buttons = [
-        [InlineKeyboardButton(text="✅ Подтвердить", callback_data="confirm_withdraw")],
-        [InlineKeyboardButton(text="❌ Отменить", callback_data="cancel_check_address")]
+        [InlineKeyboardButton(text="✅ Подтвердить", callback_data=f"confirm_withdraw_btc")],
+        [InlineKeyboardButton(text="❌ Отменить", callback_data="cancel_check_address_btc")]
     ]
     return InlineKeyboardMarkup(inline_keyboard=buttons)
+
+def back_to_btc_menu():
+    keyboard = InlineKeyboardMarkup()
+    keyboard.add(InlineKeyboardButton("🔙 Назад", callback_data="btc_menu"))
+    return keyboard
