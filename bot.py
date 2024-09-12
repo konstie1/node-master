@@ -6,6 +6,7 @@ from config.config import TOKEN  # Убедитесь, что ваш токен 
 from bot.handlers.btc_handler import btc_router  # Импортируем роутер для BTC
 from bot.handlers.start_handler import router as start_router  # Импортируем роутер для команды /start
 from bot.handlers.ltc_handler import ltc_router
+from bot.handlers.xrp_handler import xrp_router
 
 # Настройка логирования
 logging.basicConfig(level=logging.INFO, stream=sys.stdout)
@@ -18,6 +19,7 @@ dp = Dispatcher()
 dp.include_router(btc_router)  # Подключаем BTC роутер
 dp.include_router(start_router)  # Подключаем роутер для команды /start
 dp.include_router(ltc_router) 
+dp.include_router(xrp_router) 
 
 # Функция для корректного завершения работы
 async def shutdown(bot: Bot, dp: Dispatcher):
