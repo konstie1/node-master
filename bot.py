@@ -2,33 +2,33 @@ import asyncio
 import logging
 import sys
 from aiogram import Bot, Dispatcher
-from config.config import TOKEN  # Убедитесь, что ваш токен бота хранится в файле config
-from bot.handlers.btc_handler import btc_router  # Импортируем роутер для BTC
-from bot.handlers.start_handler import router as start_router  # Импортируем роутер для команды /start
+from config.config import TOKEN  
+from bot.handlers.btc_handler import btc_router 
+from bot.handlers.start_handler import router as start_router  
 from bot.handlers.ltc_handler import ltc_router
 from bot.handlers.xrp_handler import xrp_router
+from bot.handlers.trx_handler import trx_router
+from bot.handlers.eth_handler import eth_router
 
-# Настройка логирования
 logging.basicConfig(level=logging.INFO, stream=sys.stdout)
 
-# Инициализация бота и диспетчера
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
-# Подключаем маршрутизаторы
-dp.include_router(btc_router)  # Подключаем BTC роутер
-dp.include_router(start_router)  # Подключаем роутер для команды /start
+
+dp.include_router(btc_router)  
+dp.include_router(start_router)  
 dp.include_router(ltc_router) 
 dp.include_router(xrp_router) 
+dp.include_router(trx_router)
+dp.include_router(eth_router)
 
-# Функция для корректного завершения работы
 async def shutdown(bot: Bot, dp: Dispatcher):
     logging.info("Завершение работы...")
-    await dp.shutdown()  # Остановка диспетчера
-    await bot.session.close()  # Закрытие сессии бота
+    await dp.shutdown()  
+    await bot.session.close() 
     logging.info("Бот завершил работу")
 
-# Основная функция для запуска бота
 async def main():
     try:
         logging.info("Бот запущен")
@@ -40,7 +40,6 @@ async def main():
         logging.error(f"Ошибка: {e}")
         await shutdown(bot, dp)
 
-# Запуск бота
 if __name__ == "__main__":
     try:
         asyncio.run(main())

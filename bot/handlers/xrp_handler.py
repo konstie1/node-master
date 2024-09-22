@@ -229,7 +229,7 @@ async def confirm_withdraw(call: CallbackQuery, state: FSMContext):
     sender_address = user_data.get('sender_address')
     private_key = user_data.get('private_key')
     destination_address = user_data.get('destination_address')
-    total_amount = user_data.get('amount')  
+    total_amount = user_data.get('amount')  # Сумма, которую отправитель указал
 
     if not sender_address or not private_key or not destination_address or not total_amount:
         await call.message.answer("Error: Missing transaction data.")
@@ -238,6 +238,7 @@ async def confirm_withdraw(call: CallbackQuery, state: FSMContext):
     url = f"http://{RIPPLE_IP}:{RIPPLE_PORT}/"
     headers = {'content-type': 'application/json'}
 
+    # Шаг 1: Получаем текущую минимальную комиссию (fee)
     fee_data = {
         "method": "fee",
         "params": [{}]
@@ -248,7 +249,7 @@ async def confirm_withdraw(call: CallbackQuery, state: FSMContext):
         fee_result = fee_response.json()
 
         if fee_result.get('result', {}).get('status') == 'success':
-            fee_drops = int(fee_result['result']['drops']['open_ledger_fee'])
+            fee_drops = int(fee_result['result']['drops']['open_ledger_fee'])  # Комиссия в дропах
         else:
             await call.message.answer(f"❌ Error fetching fee: {fee_result['result'].get('error_message', 'Unknown error')}", reply_markup=xrp_menu())
             return

@@ -3,7 +3,7 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 # Основное меню XRP с опцией получения информации о кошельке
 def xrp_menu():
     buttons = [
-        [InlineKeyboardButton(text="📈 XRP Node Info", callback_data="xrp_info")],
+        [InlineKeyboardButton(text="📈 Info", callback_data="xrp_info")],
         [InlineKeyboardButton(text="💳 Generate Address", callback_data="xrp_generate_address")],
         [InlineKeyboardButton(text="💸 Withdraw XRP", callback_data="xrp_withdraw")],
         [InlineKeyboardButton(text="🔍 Wallet Info", callback_data="xrp_wallet_info")],  # Кнопка для запроса информации о кошельке
